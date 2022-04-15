@@ -12,12 +12,15 @@
   "dependencies": {
     "expo": "~43.0.4",
     "expo-gl": "~11.0.3",
+    "expo-modules-core": "~0.4.10",
     "expo-status-bar": "~1.1.0",
     "expo-three": "^6.1.0",
     "expo-three-orbit-controls": "^2.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
+    "react-native-gesture-handler": "~1.10.2",
+    "react-native-reanimated": "~2.2.0",
     "react-native-web": "0.17.1",
     "three": "^0.139.2"
   },
