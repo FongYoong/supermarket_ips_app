@@ -7,6 +7,10 @@
     "plugins": [
     ],
     "rules": {
-        "import/namespace": 0
+        "import/namespace": 0,
+        "import/order": 0,
+        "prettier/prettier": 0,
+        "no-lone-blocks": 0,
+        "import/first": 0
     }
 }

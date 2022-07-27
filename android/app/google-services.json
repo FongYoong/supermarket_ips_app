@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "643153827539",
+    "firebase_url": "https://idp-vlc-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "idp-vlc",
+    "storage_bucket": "idp-vlc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643153827539:android:897a47bc6021936c26e626",
+        "android_client_info": {
+          "package_name": "com.fong.yoong.supermarket_vlc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643153827539-0kicrd7a24dos5ai7psb9k3e4a4ld0h7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_x7HHCmyzOC3KEzUEIGNFxry8YteM4Mw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643153827539-0kicrd7a24dos5ai7psb9k3e4a4ld0h7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

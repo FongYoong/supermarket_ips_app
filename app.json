@@ -16,6 +16,8 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "plugins": [
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -23,10 +25,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.fong.yoong.supermarket_vlc",
+      "permissions": [
+        "CAMERA"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "packagerOpts": {
+      "sourceExts": [
+        "cjs"
+      ]
     }
   }
 }
