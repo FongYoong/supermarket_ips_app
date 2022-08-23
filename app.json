@@ -4,10 +4,8 @@
     "slug": "supermarket_ips_app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/aeyon_icon.png",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "updates": {
@@ -16,14 +14,13 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "plugins": [
-    ],
+    "plugins": [],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/images/aeyon_icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.fong.yoong.supermarket_vlc",
@@ -31,13 +28,15 @@
         "CAMERA"
       ]
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
     "packagerOpts": {
       "sourceExts": [
         "cjs"
       ]
+    },
+    "extra": {
+      "eas": {
+        "projectId": "95af3993-557a-4c1b-8f5f-9ca7e194555f"
+      }
     }
   }
 }

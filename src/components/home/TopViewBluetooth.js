@@ -1,4 +1,3 @@
-//import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect, useContext } from "react";
 import LottieView from 'lottie-react-native';
 import { useTheme, Layout, Text, Button } from "@ui-kitten/components";
@@ -84,6 +83,7 @@ export function BluetoothNotPermitted () {
                         <Text category='h2' style={{fontWeight:'bold'}} > Bluetooth </Text>
                         and
                         <Text category='h2' style={{fontWeight:'bold'}} > Location Services </Text>
+                        permissions
                         for the app to work.
                     </Text>
                     <Button

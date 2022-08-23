@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, onValue, set, limitToFirst, startAfter } from 'firebase/database';
+import { getDatabase, ref, onValue, set, update, limitToFirst, startAfter, push } from 'firebase/database';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyD_x7HHCmyzOC3KEzUEIGNFxry8YteM4Mw',
@@ -26,6 +26,30 @@ export const getProductsRef = () => {
   // limitToFirst
   return ref(database, '/products');
 }
+
+export const getChatMessagesRef = (authUID) => {
+  return ref(database, `/customer_chats/${authUID}/messages/`);
+}
+
+export const addChatMessage = async (authUID, data, successHandler, errorHandler) => {
+  const currentTimeMillis = new Date().getTime();
+  const newChildRef = push(ref(database, `/customer_chats/${authUID}/messages/`));
+  const messageId = newChildRef.key;
+  set(newChildRef, {
+      ...data,
+      dateCreated: currentTimeMillis,
+  }).then(() => successHandler(messageId)).catch(errorHandler);
+}
+
+export const updateCustomerLocation = async (authUID, data, successHandler, errorHandler) => {
+  const currentTimeMillis = new Date().getTime();
+  const nodeRef = ref(database, `/customer_locations/${authUID}/`);
+  update(nodeRef, {
+      ...data,
+      dateCreated: currentTimeMillis,
+  }).then(successHandler).catch(errorHandler);
+}
+
 
 // export const getProducts = (id, onSuccess) => {
 //   //const database = getDatabase();

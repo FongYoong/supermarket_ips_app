@@ -1,4 +1,3 @@
-//import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect, memo } from "react";
 import { StyleSheet } from 'react-native';
 import { useTheme, Layout, Text, Spinner, Divider, List } from "@ui-kitten/components";

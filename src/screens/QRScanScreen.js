@@ -1,7 +1,4 @@
-//import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import { StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme, Spinner, Layout, Text, Button, Divider, TopNavigation, TopNavigationAction, Icon } from "@ui-kitten/components";
 import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 // import { BarCodeScanner } from 'expo-barcode-scanner';
@@ -86,7 +83,7 @@ const QRScanScreen = ({navigation, route}) => {
           cameraProps={{
             autoFocus: RNCamera.Constants.AutoFocus.on,
             autoFocusPointOfInterest: { x: 0.5, y: 0.5 },
-            exposure: 0.2,
+            exposure: 0.3,
             //whiteBalance: "shadow"
             //focusDepth: 0.1
             //useCamera2Api: true

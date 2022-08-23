@@ -1,7 +1,5 @@
-//import { StatusBar } from "expo-status-bar";
 import React, { useState, useRef, useContext } from "react";
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme, Layout, Input, Text, Spinner, TopNavigation, TopNavigationAction, Divider, List } from "@ui-kitten/components";
 import { NavigationBackIcon, CloseIcon } from "../components/Icons";
 import { BluetoothContext } from "../lib/bluetooth";

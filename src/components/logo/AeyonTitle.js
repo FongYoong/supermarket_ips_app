@@ -1,7 +1,7 @@
 import * as React from "react"
 import Svg, { Defs, ClipPath, Path, Text, TSpan, G } from "react-native-svg"
 
-const AeyonLogo = (props) => (
+const AeyonTitle = (props) => (
   <Svg
     width={109.696}
     height={29.514}
@@ -71,4 +71,4 @@ const AeyonLogo = (props) => (
   </Svg>
 )
 
-export default AeyonLogo;
+export default AeyonTitle;

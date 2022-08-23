@@ -24,7 +24,7 @@
     <meta-data android:name="expo.modules.updates.EXPO_SDK_VERSION" android:value="43.0.0"/>
     <meta-data android:name="expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH" android:value="ALWAYS"/>
     <meta-data android:name="expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS" android:value="0"/>
-    <meta-data android:name="expo.modules.updates.EXPO_UPDATE_URL" android:value="https://exp.host/@anonymous/supermarket_ips_app"/>
+    <meta-data android:name="expo.modules.updates.EXPO_UPDATE_URL" android:value="https://exp.host/@fongyoong8/supermarket_ips_app"/>
     <activity android:name=".MainActivity" android:label="@string/app_name" android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode" android:launchMode="singleTask" android:windowSoftInputMode="adjustResize" android:theme="@style/Theme.App.SplashScreen" android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -35,6 +35,18 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="com.fong.yoong.supermarket_vlc"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
         <data android:scheme="exp+supermarketipsapp"/>
         <data android:scheme="exp+supermarketipsapp"/>
         <data android:scheme="exp+supermarketipsapp"/>

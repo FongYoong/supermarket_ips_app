@@ -1,7 +1,5 @@
-//import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect, useContext } from "react";
 import { useWindowDimensions } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { SharedElement } from 'react-navigation-shared-element';
 import { ZoomIn, FlyIn, FadeIn } from "../lib/transitions";
 import { useTheme, Icon, Layout, Button, Text, Spinner, TopNavigation, TopNavigationAction, Divider, List } from "@ui-kitten/components";

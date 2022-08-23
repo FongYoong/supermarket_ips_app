@@ -1,4 +1,3 @@
-//import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
 // import AppLoading from 'expo-app-loading';
 import * as ExpoSplashScreen from 'expo-splash-screen';
@@ -40,6 +39,7 @@ import SplashScreenView from "./src/components/SplashScreenView";
 import MainStack from "./src/screens/MainStack";
 import MapScreen from "./src/screens/MapScreen";
 import { useFonts, fonts } from "./src/lib/fonts";
+import { AuthProvider } from "./src/lib/firebase_auth";
 import { BluetoothProvider } from "./src/lib/bluetooth";
 import { TrolleysProvider } from "./src/lib/trolleys";
 import { MapProvider } from "./src/lib/map_context";
@@ -49,6 +49,8 @@ LogBox.ignoreLogs(["timer"]);
 LogBox.ignoreLogs(["THREE.FileLoader: HTTP Status 0 received."]);
 
 const queryClient = new QueryClient();
+
+ExpoSplashScreen.preventAutoHideAsync();
 
 // const config = {
 //   animation: 'spring',
@@ -72,7 +74,7 @@ export default function App() {
     async function prepareApp() {
       try {
         // Keep the splash screen visible while we fetch resources
-        await ExpoSplashScreen.preventAutoHideAsync();
+        // await ExpoSplashScreen.preventAutoHideAsync();
         await loadShelfAssets();
       } catch (e) {
         console.warn(e);
@@ -91,25 +93,21 @@ export default function App() {
       <ApplicationProvider {...eva} theme={eva.light} customMapping={mapping} >
         <QueryClientProvider client={queryClient}>
           {appReady ? 
-          <BluetoothProvider>
-            <TrolleysProvider>
-              <MapProvider>
-                <SafeAreaView style={{ flex: 1 }}>
-                  <NavigationContainer>
-                    {/* <TabNavigator.Navigator
-                      screenOptions={{ headerShown: false }}
-                    >
-                      <TabNavigator.Screen name="MainStack" component={MainStack} />
-                      <TabNavigator.Screen name="Map" component={MapScreen} />
-                    </TabNavigator.Navigator> */}
-                    <MainStack />
-                  </NavigationContainer>
-                  <MapScreen />
-                  <Toast config={toastConfig} />
-                </SafeAreaView>
-              </MapProvider>
-            </TrolleysProvider>
-          </BluetoothProvider>
+          <AuthProvider>
+            <BluetoothProvider>
+              <TrolleysProvider>
+                <MapProvider>
+                  <SafeAreaView style={{ flex: 1 }}>
+                    <NavigationContainer>
+                      <MainStack />
+                    </NavigationContainer>
+                    <MapScreen />
+                    <Toast config={toastConfig} />
+                  </SafeAreaView>
+                </MapProvider>
+              </TrolleysProvider>
+            </BluetoothProvider>
+          </AuthProvider>
           :
           <SplashScreenView />
           }

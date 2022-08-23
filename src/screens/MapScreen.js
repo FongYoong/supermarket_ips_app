@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useContext, useCallback } from "react";
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme, Spinner, Layout, Text, Button, Divider, TopNavigation, TopNavigationAction, Icon } from "@ui-kitten/components";
 import { PanGestureHandler, PinchGestureHandler, TapGestureHandler, State } from "react-native-gesture-handler";
 import { GLView } from "expo-gl";
@@ -20,8 +19,9 @@ import BottomSheet from '../components/map/BottomSheet';
 import { FloorMesh } from "../meshes/FloorMesh";
 import { ShelfMesh } from "../meshes/ShelfMesh";
 import { CurrentLocationSprite, TargetLocationSprite } from "../meshes/LocationSprites";
-import { generalDimensions, gridDimensions, cameraParameters, sections } from '../lib/supermarket_layout';
-import { rawGrid, searchGraph, getThreeCoordinate, getGraphNode } from '../lib/supermarket_grid';
+import { threeDimensions, gridDimensions, cameraParameters, sections } from '../lib/supermarket_layout';
+import { searchGraph, gridToThreeCoordinates, getGraphNode, findNearestNode, physicalCoordinatesToThreeCoordinates } from '../lib/supermarket_grid';
+import { TrolleysContext } from "../lib/trolleys";
 import { MapContext } from "../lib/map_context";
 import { FadeIn } from "../lib/transitions";
 
@@ -38,6 +38,7 @@ const zIndex = 10;
 
 export default function MapScreen() {
 
+  const { trolleyConnected, trolleyData } = useContext(TrolleysContext);
   const { mapState, showMap, hideMap } = useContext(MapContext);
 
   const sceneRequestRef = useRef();
@@ -58,6 +59,7 @@ export default function MapScreen() {
   const selectedBoundingBoxRef = useRef(null);
   const [selectedSection, setSelectedSection] = useState(null);
 
+  const startPointRef = useRef();
   const pathLineRef = useRef();
   const startMarkerRef = useRef();
   const targetMarkerRef = useRef();
@@ -74,43 +76,56 @@ export default function MapScreen() {
   //     });
   //   }
   // }, [route.params])
-
+  
   useEffect(() => {
     if (!sceneLoading) {
-      if (mapState.target) {
-        console.log('changed')
-        const targetPin = mapState.target.mapPin;
-        const startNode = getGraphNode(23, 6);
-        const endNode = getGraphNode(targetPin.x, targetPin.y);
-        const points = searchGraph(startNode, endNode).map((position) => {
-          const coordinate = getThreeCoordinate(position.x, position.y);
-          return new THREE.Vector3(coordinate.x, zIndex, coordinate.z);
-        });
-        pathLineRef.current.setPoints(points);
-        const currentPoint = points[0];
-        const targetPoint = points[points.length - 1];
-        startMarkerRef.current.position.set(currentPoint.x, zIndex + 2, currentPoint.z - 3);
+      if (trolleyConnected === true && trolleyData.values.coordinates) {
+        const physicalCoords = trolleyData.values.coordinates;
+        const threeCoords = physicalCoordinatesToThreeCoordinates(physicalCoords.x, physicalCoords.y);
+        const nearestNode = findNearestNode(threeCoords.x, threeCoords.z);
+        const startNode = getGraphNode(nearestNode.x, nearestNode.y);
+        const startCoord = gridToThreeCoordinates(startNode.y, startNode.x);
+        const startPoint = new THREE.Vector3(startCoord.x, zIndex, startCoord.z);
+        startPointRef.current = startPoint;
+        startMarkerRef.current.position.set(startPoint.x, zIndex + 2, startPoint.z - 3);
         startMarkerRef.current.visible = true;
-        targetMarkerRef.current.position.set(targetPoint.x, zIndex + 2, targetPoint.z - 3);
-        targetMarkerRef.current.visible = true;
-        startCircleRef.current.position.set(currentPoint.x, zIndex + 1, currentPoint.z);
+        startCircleRef.current.position.set(startPoint.x, zIndex + 1, startPoint.z);
         startCircleRef.current.visible = true;
-        targetCircleRef.current.position.set(targetPoint.x, zIndex + 1, targetPoint.z);
-        targetCircleRef.current.visible = true;
-        cameraPosX.value = withTiming(currentPoint.x, { duration: 500 });
-        cameraPosZ.value = withTiming(currentPoint.z, { duration: 500 });
+        if (mapState.target) {
+          const targetPin = mapState.target.mapPin;
+          const endNode = getGraphNode(targetPin.x, targetPin.y);
+          const points = searchGraph(startNode, endNode).map((position) => {
+            const coordinate = gridToThreeCoordinates(position.x, position.y);
+            return new THREE.Vector3(coordinate.x, zIndex, coordinate.z);
+          });
+          pathLineRef.current.setPoints(points);
+          const targetPoint = points[points.length - 1];
+          targetMarkerRef.current.position.set(targetPoint.x, zIndex + 2, targetPoint.z - 3);
+          targetMarkerRef.current.visible = true;
+          targetCircleRef.current.position.set(targetPoint.x, zIndex + 1, targetPoint.z);
+          targetCircleRef.current.visible = true;
+        }
+        else {
+          pathLineRef.current.setPoints([]);
+          targetMarkerRef.current.visible = false;
+          targetCircleRef.current.visible = false;
+        }
       }
       else {
         startMarkerRef.current.visible = false;
-        targetMarkerRef.current.visible = false;
         startCircleRef.current.visible = false;
-        targetCircleRef.current.visible = false;
       }
     }
-  }, [sceneLoading, mapState.target]);
+  }, [sceneLoading, trolleyConnected, trolleyData.values.coordinates, mapState.target]);
+
+  const recenterCamera = () => {
+    if (startPointRef.current) {
+      cameraPosX.value = withTiming(startPointRef.current.x, { duration: 500 });
+      cameraPosZ.value = withTiming(startPointRef.current.z, { duration: 500 });
+    }
+  }
 
   // Camera parameters
-
   const oldScale = useSharedValue(0);
   const fov = useSharedValue(cameraParameters.initialFov);
 
@@ -155,8 +170,8 @@ export default function MapScreen() {
         oldTransX.value = transX;
         const newValue = cameraRef.current.position.x + diffX;
         cameraPosX.value = withSpring(Math.min(
-          Math.max(newValue, generalDimensions.xNegativeBoundary),
-          generalDimensions.xPositiveBoundary
+          Math.max(newValue, threeDimensions.xNegativeBoundary),
+          threeDimensions.xPositiveBoundary
         ), { mass: 0.5, damping: 100, stiffness: 200 });
         // cameraPosX.value = cameraPosX.value + diffX * 0.1;
       }
@@ -164,8 +179,8 @@ export default function MapScreen() {
         oldTransY.value = transY;
         const newValue = cameraRef.current.position.z + diffY;
         cameraPosZ.value = withSpring(Math.min(
-          Math.max(newValue, generalDimensions.zNegativeBoundary),
-          generalDimensions.zPositiveBoundary
+          Math.max(newValue, threeDimensions.zNegativeBoundary),
+          threeDimensions.zPositiveBoundary
         ), { mass: 0.5, damping: 100, stiffness: 200 });
         // cameraPosZ.value = cameraPosZ.value + diffY * 0.1;
       }
@@ -219,8 +234,8 @@ export default function MapScreen() {
     }
   };
 
-  const setupScene = async (gl) => {
-    console.log('setting up');
+  const setupScene = useCallback(async (gl) => {
+    console.log('setting up scene');
     setSceneLoading(true);
     const { drawingBufferWidth: width, drawingBufferHeight: height } = gl;
     gl.canvas = { width, height };
@@ -255,10 +270,12 @@ export default function MapScreen() {
     pathLineRef.current = pathLine;
 
     const startMarker = await CurrentLocationSprite.create();
+    startMarker.visible = false;
     scene.add(startMarker);
     startMarkerRef.current = startMarker;
     
     const targetMarker = await TargetLocationSprite.create();
+    targetMarker.visible = false;
     scene.add(targetMarker);
     targetMarkerRef.current = targetMarker;
 
@@ -266,12 +283,14 @@ export default function MapScreen() {
     const startCircleMaterial = new THREE.MeshBasicMaterial({ color: 0xffd000 });
     const startCircle = new THREE.Mesh(circleGeometry, startCircleMaterial);
     startCircle.rotation.set(THREE.Math.degToRad(-90), 0, 0);
+    startCircle.visible = false;
     scene.add(startCircle);
     startCircleRef.current = startCircle;
 
     const targetCircleMaterial = new THREE.MeshBasicMaterial({ color: 0xffb8c7 });
     const targetCircle = new THREE.Mesh(circleGeometry, targetCircleMaterial);
     targetCircle.rotation.set(THREE.Math.degToRad(-90), 0, 0);
+    targetCircle.visible = false;
     scene.add(targetCircle);
     targetCircleRef.current = targetCircle;
 
@@ -285,7 +304,7 @@ export default function MapScreen() {
     camera.position.set(cameraParameters.initialX, cameraParameters.height, cameraParameters.initialZ);
     cameraRef.current = camera;
 
-    const floor = await FloorMesh.create(generalDimensions.length, generalDimensions.width);
+    const floor = await FloorMesh.create(threeDimensions.length, threeDimensions.width);
     floor.castShadow = true;
     floor.receiveShadow = true;
     floor.position.set(0, 0, 0);
@@ -300,6 +319,7 @@ export default function MapScreen() {
           selectedBoundingBoxRef.current = boundingBox;
           boundingBox.visible = true;
           setSelectedSection({
+            id: `${section.productCategory}-${model.gridPosition.x}-${model.gridPosition.y}`,
             name: section.productCategory,
             mapPin: model.gridPosition
           });
@@ -346,8 +366,8 @@ export default function MapScreen() {
     };
     renderScene();
     setSceneLoading(false);
-    console.log('setup done');
-  };  
+    console.log('scene setup done');
+  }, []);
 
   return (
     <FadeIn
@@ -425,7 +445,9 @@ export default function MapScreen() {
             </TapGestureHandler>
           </PanGestureHandler>
         </PinchGestureHandler>
-        <BottomSheet loading={sceneLoading} selectedSection={selectedSection} />
+        <BottomSheet loading={sceneLoading} selectedSection={selectedSection} 
+          onRecenter={recenterCamera}
+        />
       </Layout>
     </FadeIn>
   );

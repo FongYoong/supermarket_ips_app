@@ -1,16 +1,12 @@
-//import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect, useMemo, useContext } from "react";
 import { StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { SvgUri } from 'react-native-svg';
 import AeyonTitle from '../components/logo/AeyonTitle'
 import { useTheme, Spinner, Layout, Text, Button, Divider, TopNavigation, TopNavigationAction, Icon } from "@ui-kitten/components";
-import { SettingsIcon } from "../components/Icons";
+import { InfoIcon } from "../components/Icons";
 import { BluetoothDisabled, BluetoothNotPermitted } from "../components/home/TopViewBluetooth";
 import { ScanQR, TrolleyConnecting, TrolleyConnected, TrolleyDisconnected } from "../components/home/TopViewTrolley";
 import { BluetoothContext } from "../lib/bluetooth";
 import { TrolleysContext } from "../lib/trolleys";
-import { MapContext } from "../lib/map_context";
 //import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 // const DrawerIcon = (props) => <Icon {...props} name="arrow-back" />;
 
@@ -86,7 +82,7 @@ const HomeScreen = ({navigation}) => {
     </View>
   );
 
-  const navAccessoryRight = <TopNavigationAction icon={SettingsIcon}/>;
+  const navAccessoryRight = <TopNavigationAction icon={InfoIcon} onPress={ () => navigation.push('Info') } />;
 
   return (
     <>
@@ -128,7 +124,7 @@ const HomeScreen = ({navigation}) => {
         </Button>
         <Button size='large' style={styles.actionButtons} accessoryLeft={<Icon name='people-outline' />} status='danger'
             onPress={() => {
-              navigation.push('Customer Support')
+              navigation.push('Support')
             }}
         >
           Request Support

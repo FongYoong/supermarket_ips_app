@@ -1,4 +1,3 @@
-//import { StatusBar } from "expo-status-bar";
 import React, { useContext, useEffect } from "react";
 import { useTheme, Spinner, Layout, Text, Button, Divider, TopNavigation, TopNavigationAction, Icon } from "@ui-kitten/components";
 import { MapContext } from "../lib/map_context";

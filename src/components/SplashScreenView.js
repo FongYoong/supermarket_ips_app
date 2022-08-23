@@ -1,11 +1,10 @@
 import React from "react";
 import { Text, Layout } from "@ui-kitten/components";
 
-
 function SplashScreenView({}) {
 
     return (
-        <Layout style={{flex: 1}}>
+        <Layout style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
             <Text>Loading...</Text>
         </Layout>
     )

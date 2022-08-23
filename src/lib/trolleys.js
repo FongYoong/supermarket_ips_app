@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext, createContext, useRef, useMemo } from 'react';
-import { Linking, Alert } from 'react-native';
+import React, { useState, useEffect, useContext, createContext, useRef } from 'react';
 import Toast from 'react-native-toast-message';
-import * as Location from 'expo-location';
 import { bluetoothManager, BluetoothContext } from './bluetooth';
 import base64 from 'react-native-base64';
 import { storeSelectedTrolley, getSelectedTrolley } from './localStorage';
+import { stringToPhysicalCoordinates } from './supermarket_grid';
 
 export const TrolleysContext = createContext(undefined);
 
@@ -60,6 +59,7 @@ export function TrolleysProvider ({children}) {
     }
 
     const deselectTrolley = () => {
+        setTrolleyConnected(false);
         setTrolleysState((prev) => {
             return {
                 ...prev,
@@ -68,7 +68,7 @@ export function TrolleysProvider ({children}) {
         });
         setTrolleyData((prev) => {
             return {
-                values: prev.values,
+                ...prev,
                 error: false
             }
         })
@@ -161,11 +161,21 @@ export function TrolleysProvider ({children}) {
         }
     }, [simpleBluetoothState, trolleysState.selectedTrolley])
 
+    const disconnectErrorToast = () => {
+        Toast.show({
+            type: 'error',
+            visibilityTime: 5000,
+            text1: `Disconnected from ${trolleysState.selectedTrolley.name}`,
+            text2: "Check the trolley display for more info."
+        });
+    }
+
     const connectSelectedTrolley = () => {
         if(simpleBluetoothState === "enabled" && trolleysState.selectedTrolley !== null) {
             console.log("Start connecting")
             setTrolleyConnected("loading");
             const errorCallback = (e) => {
+                disconnectErrorToast();
                 setTrolleyConnected(false);
                 console.log(e);
             };
@@ -202,32 +212,45 @@ export function TrolleysProvider ({children}) {
                 if (canFetchTrolleyData.current) {
                     canFetchTrolleyData.current = false;
                     const { id } = trolleysStateRef.current.selectedTrolley;
-                    console.log('Fetch BLE data: ', id)
+                    console.log('Fetch BLE data from ID: ', id)
                     try {
                         const coordinateChar = await bluetoothManager.readCharacteristicForDevice(
                             id,
                             trolleyServiceUUID, // serviceUUID
                             trolleyCharacteristicUUIDs.coordinate, // characteristicUUID
                         );
-                        const coordinate = base64.decode(coordinateChar.value);
-                        console.log("Fetched data: ", coordinate);
+                        const coordinates = stringToPhysicalCoordinates(base64.decode(coordinateChar.value));
+                        console.log("Fetched data: ", coordinates);
                         setTrolleyData((prev) => {
                             return {
                                 values: {
                                     ...prev.values,
-                                    coordinate
+                                    coordinates
                                 },
                                 error: false
                             }
                         })
                     } catch (e) {
-                        console.error(e);
-                        setTrolleyData((prev) => {
-                            return {
-                                ...prev,
-                                error: true
-                            }
-                        });
+                        console.log('Fetch error found:');
+                        console.log(e);
+                        if (e.message.includes("read failed")) {
+                            setTrolleyData((prev) => {
+                                return {
+                                    ...prev,
+                                    error: true
+                                }
+                            });
+                        }
+                        else {
+                            disconnectErrorToast();
+                            setTrolleyConnected(false);
+                            setTrolleyData((prev) => {
+                                return {
+                                    ...prev,
+                                    error: false
+                                }
+                            });
+                        }
                     } finally {
                         canFetchTrolleyData.current = true;
                     }
