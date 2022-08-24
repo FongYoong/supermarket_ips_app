@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useMemo, useContext } from "react";
+import React, { useMemo, useContext } from "react";
 import { StyleSheet, View } from 'react-native';
 import AeyonTitle from '../components/logo/AeyonTitle'
-import { useTheme, Spinner, Layout, Text, Button, Divider, TopNavigation, TopNavigationAction, Icon } from "@ui-kitten/components";
+import { Spinner, Layout, Button, Divider, TopNavigation, TopNavigationAction, Icon } from "@ui-kitten/components";
 import { InfoIcon } from "../components/Icons";
 import { BluetoothDisabled, BluetoothNotPermitted } from "../components/home/TopViewBluetooth";
 import { ScanQR, TrolleyConnecting, TrolleyConnected, TrolleyDisconnected } from "../components/home/TopViewTrolley";

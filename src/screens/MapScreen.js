@@ -1,25 +1,21 @@
 import React, { useState, useEffect, useRef, useContext, useCallback } from "react";
-import { useTheme, Spinner, Layout, Text, Button, Divider, TopNavigation, TopNavigationAction, Icon } from "@ui-kitten/components";
+import { Spinner, Layout, Divider, TopNavigation, TopNavigationAction } from "@ui-kitten/components";
 import { PanGestureHandler, PinchGestureHandler, TapGestureHandler, State } from "react-native-gesture-handler";
 import { GLView } from "expo-gl";
 import { Renderer, THREE } from "expo-three";
 THREE.suppressMetroWarnings();
 import { MeshLine, MeshLineMaterial } from 'three.meshline';
-import Animated, {
+import {
   useSharedValue,
-  useAnimatedGestureHandler,
   withTiming,
   withSpring,
-  withDecay,
-  useAnimatedStyle,
-  Easing,
 } from "react-native-reanimated";
 import { NavigationBackIcon } from "../components/Icons";
 import BottomSheet from '../components/map/BottomSheet';
 import { FloorMesh } from "../meshes/FloorMesh";
 import { ShelfMesh } from "../meshes/ShelfMesh";
 import { CurrentLocationSprite, TargetLocationSprite } from "../meshes/LocationSprites";
-import { threeDimensions, gridDimensions, cameraParameters, sections } from '../lib/supermarket_layout';
+import { threeDimensions, cameraParameters, sections } from '../lib/supermarket_layout';
 import { searchGraph, gridToThreeCoordinates, getGraphNode, findNearestNode, physicalCoordinatesToThreeCoordinates } from '../lib/supermarket_grid';
 import { TrolleysContext } from "../lib/trolleys";
 import { MapContext } from "../lib/map_context";
@@ -27,9 +23,9 @@ import { FadeIn } from "../lib/transitions";
 
 const raycaster = new THREE.Raycaster();
 const touchPoint = new THREE.Vector2();
-const gridPointGeometry = new THREE.BoxGeometry(1, 1, 1);
-const gridPointMaterial = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-const gridPointHighlightMaterial = new THREE.MeshBasicMaterial( {color: 0xff0019} );
+// const gridPointGeometry = new THREE.BoxGeometry(1, 1, 1);
+// const gridPointMaterial = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+// const gridPointHighlightMaterial = new THREE.MeshBasicMaterial( {color: 0xff0019} );
 const pathLineMaterial = new MeshLineMaterial({
 	color: 0x0000ff,
   lineWidth: 1,

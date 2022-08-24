@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
-import { View, StyleSheet, Modal as RnModal } from 'react-native';
+import React, { useState, useContext } from "react";
+import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
-import { useTheme, Layout, Text, Button, Divider, Icon } from "@ui-kitten/components";
-import { ScanQRIcon, SettingsIcon } from "../Icons";
-import { openAppSettings } from "../../lib/bluetooth";
+import { Layout, Text, Button, Icon } from "@ui-kitten/components";
+import { ScanQRIcon } from "../Icons";
 import { TrolleysContext } from "../../lib/trolleys";
 import { ZoomIn, FlyIn, FadeIn } from "../../lib/transitions";
 import Dialog from "react-native-dialog";
-//import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'; 
-//import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 export function ScanQR () {
     const navigation = useNavigation();

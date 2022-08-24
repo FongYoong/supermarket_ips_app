@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import LottieView from 'lottie-react-native';
-import { useTheme, Layout, Text, Button } from "@ui-kitten/components";
-import { BluetoothIcon, LocationIcon, ScanQRIcon, SettingsIcon } from "../Icons";
+import { Layout, Text, Button } from "@ui-kitten/components";
+import { BluetoothIcon, LocationIcon, SettingsIcon } from "../Icons";
 import { openAppSettings, enableBluetooth, enableLocationServices, BluetoothContext } from "../../lib/bluetooth";
-import { TrolleysContext } from "../../lib/trolleys";
 import { ZoomIn } from "../../lib/transitions";
-//import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+
 export function BluetoothDisabled () {
 
     const { bluetoothState } = useContext(BluetoothContext);

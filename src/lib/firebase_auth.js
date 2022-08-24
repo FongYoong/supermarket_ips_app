@@ -1,4 +1,4 @@
-import React, { useState, createContext, useRef, useMemo, useEffect } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import { getAuth, signInAnonymously } from "firebase/auth";
 const authInstance = getAuth();
 

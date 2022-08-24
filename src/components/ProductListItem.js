@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
-import { useWindowDimensions, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { useWindowDimensions, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SharedElement } from 'react-navigation-shared-element';
-import { useTheme, Layout, Text, Button, TopNavigation, Divider, List, Card, Icon } from "@ui-kitten/components";
+import { Text } from "@ui-kitten/components";
 import { Image, ProgressIndicator, resizeModes } from './Image'
 import ProductCategoryBadge from './ProductCategoryBadge';
 

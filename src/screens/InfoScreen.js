@@ -1,7 +1,6 @@
-import React, { useContext, useEffect } from "react";
-import { StyleSheet, View } from 'react-native';
-import { useTheme, Spinner, Layout, Text, Button, Divider, TopNavigation, TopNavigationAction } from "@ui-kitten/components";
-import { InfoIcon, NavigationBackIcon } from "../components/Icons";
+import React from "react";
+import { Layout, Text, Divider, TopNavigation, TopNavigationAction } from "@ui-kitten/components";
+import { NavigationBackIcon } from "../components/Icons";
 import AeyonTitle from "../components/logo/AeyonTitle";
 
 const InfoScreen = ({navigation}) => {

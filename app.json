@@ -1,5 +1,6 @@
 {
   "expo": {
+    "jsEngine": "hermes",
     "name": "supermarket_ips_app",
     "slug": "supermarket_ips_app",
     "version": "1.0.0",

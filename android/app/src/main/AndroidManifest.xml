@@ -57,6 +57,17 @@
         <data android:scheme="exp+supermarketipsapp"/>
         <data android:scheme="exp+supermarketipsapp"/>
         <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
+        <data android:scheme="exp+supermarketipsapp"/>
       </intent-filter>
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>

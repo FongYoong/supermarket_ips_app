@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { useWindowDimensions } from 'react-native';
 import { SharedElement } from 'react-navigation-shared-element';
-import { ZoomIn, FlyIn, FadeIn } from "../lib/transitions";
-import { useTheme, Icon, Layout, Button, Text, Spinner, TopNavigation, TopNavigationAction, Divider, List } from "@ui-kitten/components";
+import { ZoomIn, FlyIn } from "../lib/transitions";
+import { Layout, Button, Text, TopNavigation, TopNavigationAction, Divider } from "@ui-kitten/components";
 import { Image, ProgressIndicator, resizeModes } from '../components/Image'
 import { NavigationBackIcon, LocationIcon } from "../components/Icons";
 import ProductCategoryBadge from "../components/ProductCategoryBadge";

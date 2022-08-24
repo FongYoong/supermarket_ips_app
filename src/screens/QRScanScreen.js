@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useTheme, Spinner, Layout, Text, Button, Divider, TopNavigation, TopNavigationAction, Icon } from "@ui-kitten/components";
-import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { PermissionsAndroid } from "react-native";
+import { Spinner, Layout, Text } from "@ui-kitten/components";
+// import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 // import { BarCodeScanner } from 'expo-barcode-scanner';
 // import { Camera } from 'expo-camera';
 import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -56,14 +57,22 @@ const QRScanScreen = ({navigation, route}) => {
   const [hasPermission, setHasPermission] = useState(false);
 
   useEffect(() => {
-    request(PERMISSIONS.ANDROID.CAMERA).then((status) => {
-      if (status === RESULTS.GRANTED) {
+    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA).then((status) => {
+      if (status === PermissionsAndroid.RESULTS.GRANTED) {
         setHasPermission(true);
       }
       else {
         navigation.goBack();
       }
     })
+    // request(PERMISSIONS.ANDROID.CAMERA).then((status) => {
+    //   if (status === RESULTS.GRANTED) {
+    //     setHasPermission(true);
+    //   }
+    //   else {
+    //     navigation.goBack();
+    //   }
+    // })
     // Camera.requestCameraPermissionsAsync().then(({status}) => {
     //   if (status !== 'granted') {
     //     navigation.goBack();

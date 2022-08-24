@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Spinner, Layout, Text, Divider, TopNavigation, TopNavigationAction } from "@ui-kitten/components";
+import { Layout, Text, Divider, TopNavigation, TopNavigationAction } from "@ui-kitten/components";
 import { Chat } from '@flyerhq/react-native-chat-ui'
 import { InfoIcon, NavigationBackIcon } from "../components/Icons";
 import { AuthContext } from "../lib/firebase_auth";

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext } from "react";
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { useTheme, Layout, Input, Text, Spinner, TopNavigation, TopNavigationAction, Divider, List } from "@ui-kitten/components";
+import { TouchableOpacity } from 'react-native';
+import { Layout, Input, TopNavigation, TopNavigationAction, Divider, List } from "@ui-kitten/components";
 import { NavigationBackIcon, CloseIcon } from "../components/Icons";
 import { BluetoothContext } from "../lib/bluetooth";
 import ProductList from "../components/ProductList";

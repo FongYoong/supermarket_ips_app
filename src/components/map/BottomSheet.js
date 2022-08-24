@@ -1,8 +1,8 @@
 
-import React, { useState, useEffect, useRef, useContext, useCallback, useMemo } from "react";
+import React, { useEffect, useRef, useContext, useCallback } from "react";
 import { View } from "react-native";
 import BottomSheet from '@gorhom/bottom-sheet';
-import { Spinner, Layout, Text, Button, Divider, Icon } from "@ui-kitten/components";
+import { Layout, Text, Button, Divider, Icon } from "@ui-kitten/components";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'; 
 import { LocationIcon, RecenterLocationIcon } from "../Icons";
 import { TrolleysContext } from "../../lib/trolleys";

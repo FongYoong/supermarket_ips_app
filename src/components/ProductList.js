@@ -1,6 +1,5 @@
 import React, { useState, useEffect, memo } from "react";
-import { StyleSheet } from 'react-native';
-import { useTheme, Layout, Text, Spinner, Divider, List } from "@ui-kitten/components";
+import { Layout, Text, Spinner, List } from "@ui-kitten/components";
 import ProductListItem from "./ProductListItem";
 import { getProductsRef, toArray } from "../lib/firebase";
 import { useDatabaseSnapshot  } from "@react-query-firebase/database";

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useTheme, Spinner, Layout, Text, Button, Divider, TopNavigation, TopNavigationAction, Icon } from "@ui-kitten/components";
+import { Layout } from "@ui-kitten/components";
 import { MapContext } from "../lib/map_context";
 //import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 // const DrawerIcon = (props) => <Icon {...props} name="arrow-back" />;
