@@ -141,39 +141,3 @@ const styles = StyleSheet.create({
     width: '100%'
   },
 });
-
-{/* <View style={styles.container}>
-  <TouchableOpacity
-    style={{
-      flex: 1,
-      width: "100%",
-      alignItems: "center",
-      justifyContent: "center",
-      borderColor: "black",
-      borderWidth: 2,
-    }}
-    onPress={() => {
-      console.log("clicked");
-    }}
-  >
-    <Text
-      style={{
-        borderColor: "black",
-        borderWidth: 2,
-      }}
-    >
-      Touch Here
-    </Text>
-  </TouchableOpacity>
-</View> */}
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     flexDirection: "column",
-//     backgroundColor: "#fff",
-//     alignItems: "center",
-//     justifyContent: "center",
-//     padding: 5,
-//   },
-// });

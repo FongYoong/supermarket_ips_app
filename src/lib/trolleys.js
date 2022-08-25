@@ -261,7 +261,7 @@ export function TrolleysProvider ({children}) {
                     console.log(e);
                     clearInterval(fetchDataId);
                 });
-            }, 3500)
+            }, 1500)
             return () => {
                 clearInterval(fetchDataId);
             }

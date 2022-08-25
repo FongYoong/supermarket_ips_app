@@ -11,19 +11,42 @@ const modelAssets = {
 };
 
 const textureAssets = {
-  shelf1: Asset.fromModule(require("../../assets/textures/metal.jpg")),
-  shelf2: Asset.fromModule(require("../../assets/textures/shelf2.jpg")),
-  shelf3: Asset.fromModule(require("../../assets/textures/metal.jpg")),
-  shelf4: Asset.fromModule(require("../../assets/textures/metal.jpg")),
-  shelf5: Asset.fromModule(require("../../assets/textures/metal.jpg")),
+  shelf1: Asset.fromModule(require("../../assets/textures/metal.xjpg")),
+  shelf2: Asset.fromModule(require("../../assets/textures/shelf2.xjpg")),
+  shelf3: Asset.fromModule(require("../../assets/textures/metal.xjpg")),
+  shelf4: Asset.fromModule(require("../../assets/textures/metal.xjpg")),
+  shelf5: Asset.fromModule(require("../../assets/textures/metal.xjpg")),
 };
+
+const textureDimensions = {
+  // width, height
+  shelf1: [1024, 910],
+  shelf2: [1024, 910],
+  shelf3: [1024, 910],
+  shelf4: [1024, 910],
+  shelf5: [1024, 910],
+};
+
+Object.keys(textureAssets).forEach((assetKey) => {
+  const asset = textureAssets[assetKey];
+  if (asset.type === 'xjpg') {
+    asset.type = 'jpg';
+    asset.width = textureDimensions[assetKey][0];
+    asset.height = textureDimensions[assetKey][1]
+  }
+})
 
 const textures = {};
 
 export const loadShelfAssets = async () => {
   await Promise.all(Object.values(modelAssets).map((asset) => asset.downloadAsync()));
   for (const assetName in textureAssets) {
-    const texture =  await ExpoTHREE.loadAsync(textureAssets[assetName]);
+    const asset = textureAssets[assetName];
+    // const texture =  await ExpoTHREE.loadAsync(textureAssets[assetName]);
+    await asset.downloadAsync();
+    const texture = await ExpoTHREE.loadTextureAsync({ asset })
+    console.log(asset)
+    console.log(texture)
     textures[assetName] = texture;
   }
   //     ...Object.values(textureAssets).map((asset) => ExpoTHREE.loadAsync(asset))

@@ -53,8 +53,6 @@ const SupportScreen = ({navigation}) => {
         })
     }  
 
-    console.log(trolleyConnected)
-
     return (
     <>
         <TopNavigation

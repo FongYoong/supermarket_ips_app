@@ -234,6 +234,7 @@ export default function MapScreen() {
     console.log('setting up scene');
     setSceneLoading(true);
     const { drawingBufferWidth: width, drawingBufferHeight: height } = gl;
+    console.log('canvas:', width, height);
     gl.canvas = { width, height };
     const renderer = new Renderer({ gl });
     renderer.setSize(width, height);
@@ -260,21 +261,25 @@ export default function MapScreen() {
     //   }
     // }
 
+    console.log('creating path')
     const pathLine = new MeshLine();
     const pathLineMesh = new THREE.Mesh(pathLine, pathLineMaterial);
     scene.add(pathLineMesh);
     pathLineRef.current = pathLine;
 
+    console.log('creating start marker')
     const startMarker = await CurrentLocationSprite.create();
     startMarker.visible = false;
     scene.add(startMarker);
     startMarkerRef.current = startMarker;
     
+    console.log('creating target marker')
     const targetMarker = await TargetLocationSprite.create();
     targetMarker.visible = false;
     scene.add(targetMarker);
     targetMarkerRef.current = targetMarker;
 
+    console.log('creating start circle')
     const circleGeometry = new THREE.CircleGeometry(2, 16);
     const startCircleMaterial = new THREE.MeshBasicMaterial({ color: 0xffd000 });
     const startCircle = new THREE.Mesh(circleGeometry, startCircleMaterial);
@@ -283,6 +288,7 @@ export default function MapScreen() {
     scene.add(startCircle);
     startCircleRef.current = startCircle;
 
+    console.log('creating target circle')
     const targetCircleMaterial = new THREE.MeshBasicMaterial({ color: 0xffb8c7 });
     const targetCircle = new THREE.Mesh(circleGeometry, targetCircleMaterial);
     targetCircle.rotation.set(THREE.Math.degToRad(-90), 0, 0);
@@ -290,6 +296,7 @@ export default function MapScreen() {
     scene.add(targetCircle);
     targetCircleRef.current = targetCircle;
 
+    console.log('creating camera')
     const camera = new THREE.PerspectiveCamera(
       cameraParameters.initialFov,
       width / height,
@@ -300,12 +307,14 @@ export default function MapScreen() {
     camera.position.set(cameraParameters.initialX, cameraParameters.height, cameraParameters.initialZ);
     cameraRef.current = camera;
 
+    console.log('creating floor')
     const floor = await FloorMesh.create(threeDimensions.length, threeDimensions.width);
     floor.castShadow = true;
     floor.receiveShadow = true;
     floor.position.set(0, 0, 0);
     scene.add(floor);
 
+    console.log('creating shelves')
     for (const section of sections) {
       for (const model of section.models) {
         const shelf = await ShelfMesh.create(model, (boundingBox) => {
@@ -326,6 +335,7 @@ export default function MapScreen() {
       }
     }
 
+    console.log('creating lights')
     const topLight = new THREE.DirectionalLight(0xffffff, 0.2);
     topLight.position.set(0, 10, 0);
     topLight.target = floor;

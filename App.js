@@ -50,8 +50,6 @@ LogBox.ignoreLogs(["THREE.FileLoader: HTTP Status 0 received."]);
 
 const queryClient = new QueryClient();
 
-ExpoSplashScreen.preventAutoHideAsync();
-
 // const config = {
 //   animation: 'spring',
 //   config: {
@@ -75,6 +73,7 @@ export default function App() {
       try {
         // Keep the splash screen visible while we fetch resources
         // await ExpoSplashScreen.preventAutoHideAsync();
+        await ExpoSplashScreen.preventAutoHideAsync();
         await loadShelfAssets();
       } catch (e) {
         console.warn(e);
