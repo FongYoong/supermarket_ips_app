@@ -1,7 +1,10 @@
 import React from "react";
-import { Layout, Text, Divider, TopNavigation, TopNavigationAction } from "@ui-kitten/components";
-import { NavigationBackIcon } from "../components/Icons";
+import { Linking } from 'react-native';
+import { Layout, Text, Button, Divider, TopNavigation, TopNavigationAction } from "@ui-kitten/components";
+import { NavigationBackIcon, GitHubIcon } from "../components/Icons";
 import AeyonTitle from "../components/logo/AeyonTitle";
+
+const githubUrl = "https://github.com/FongYoong/supermarket_ips_esp32";
 
 const InfoScreen = ({navigation}) => {
 
@@ -28,8 +31,21 @@ const InfoScreen = ({navigation}) => {
                     Using visible-light-communication (VLC), these trolleys provide location information that is beneficial for navigating the supermarket.
             </Text>
             <Text>
-                • Developed as part of Integrated Design Project.
+                • Developed as part of UEEA2148 Integrated Design Project.
             </Text>
+            <Button style={{
+                marginTop: 16,
+                alignSelf: 'center'
+            }}
+                size='medium'
+                accessoryLeft={GitHubIcon} status='basic'
+                appearance='filled'
+                onPress={async () => {
+                    await Linking.openURL(githubUrl);
+                }}
+            >
+                GitHub
+            </Button>
         </Layout>
     </>
 )};

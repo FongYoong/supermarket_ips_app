@@ -18,3 +18,5 @@ export const LocationIcon = (props) =>  <Icon {...props} name="navigation-2-outl
 export const RecenterLocationIcon = (props) =>  <Icon {...props} name="compass-outline" />;
 
 export const ScanQRIcon = (props) => <Icon {...props} name="camera-outline" />;
+
+export const GitHubIcon = (props) => <Icon {...props} name="github-outline" />;

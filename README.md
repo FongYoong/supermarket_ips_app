@@ -36,7 +36,7 @@
 
 ***
 
-## Building Locally without Expo
+### Building Locally without Expo
 
 1. As discussed in [Issue #1](https://github.com/expo/expo-three/issues/185#issuecomment-732161813) and [Issue #2](https://github.com/expo/expo-three/issues/225), React Native's **release build** causes image files (`.jpg, .png, etc`) to be moved by `gradlew` to  the Android project's drawable assets folder and will possess a **different URI scheme** which [expo-three](https://github.com/expo/expo-three)'s asset loader does not recognise. Hence, **the map will fail to load properly**. As a hacky solution, rename texture image extensions from `.jpg` to `.xjpg`. Likewise, `.png` becomes `.xpng`. The addition of `x` is arbitrary and to avoid the images from being affected by the different URI scheme.
 
@@ -78,7 +78,7 @@
 
 ***
 
-## Misc
+### Misc
 1. In a normal React Native project without Expo, it should be possible to create a **debug build without the dev server**. In `android\app\build.gradle`, add the following:
     ```
     project.ext.react = [
