@@ -4,7 +4,7 @@ import { Layout, Text, Button, Divider, TopNavigation, TopNavigationAction } fro
 import { NavigationBackIcon, GitHubIcon } from "../components/Icons";
 import AeyonTitle from "../components/logo/AeyonTitle";
 
-const githubUrl = "https://github.com/FongYoong/supermarket_ips_esp32";
+const githubUrl = "https://github.com/FongYoong/supermarket_ips_app";
 
 const InfoScreen = ({navigation}) => {
 
