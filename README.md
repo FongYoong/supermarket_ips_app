@@ -1,5 +1,5 @@
 ## Supermarket IPS App
-
+* [⭳ Download](https://github.com/FongYoong/supermarket_ips_app/releases/latest/download/app-release.apk)
 * A [React Native](https://reactnative.dev/) app which uses [Expo's bare workflow](https://docs.expo.dev/introduction/managed-vs-bare/#bare-workflow).
 * This app is part of a demonstration for an indoor positioning system (IPS) in supermarkets. The IPS relies on visible light communication (VLC) to determine the customers' relative positions in the supermarket.
 * The app's features include:
