@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef, useContext, useCallback } from "react";
+import React, { useEffect, useRef, useContext, useCallback, useMemo } from "react";
 import { View } from "react-native";
 import BottomSheet from '@gorhom/bottom-sheet';
 import { Layout, Text, Button, Divider, Icon } from "@ui-kitten/components";
@@ -71,14 +71,16 @@ function MapBottomSheet({loading, selectedSection, onRecenter}) {
         }
     }
 
-    let distance;
-    if (trolleyConnected === true && trolleyData.values.coordinates && target) {
-        const startCoords = trolleyData.values.coordinates;
-        const targetNode = target.mapPin;
-        const endCoords = gridToPhysicalCoordinates(targetNode.x, targetNode.y);
-        distance = Math.sqrt(Math.pow(endCoords.x - startCoords.x, 2) + Math.pow(endCoords.y - startCoords.y, 2));
-        // findPhysicalDistanceBetweenGridNodes(trolleyData.values.coordinates)
-    }
+    const distance = useMemo(() => {
+        if (trolleyConnected === true && trolleyData.values.coordinates && mapState.target) {
+            const startCoords = trolleyData.values.coordinates;
+            const targetNode = mapState.target.mapPin;
+            const endCoords = gridToPhysicalCoordinates(targetNode.x, targetNode.y);
+            return Math.sqrt(Math.pow(endCoords.x - startCoords.x, 2) + Math.pow(endCoords.y - startCoords.y, 2));
+        }
+        return undefined;
+    }, [trolleyConnected, trolleyData.values.coordinates, target])
+
 
     return (
         <View
@@ -125,7 +127,7 @@ function MapBottomSheet({loading, selectedSection, onRecenter}) {
             </Animated.View>
             <BottomSheet
                 ref={bottomSheetRef}
-                index={-1}
+                index={0}
                 snapPoints={snapPoints}
                 onChange={handleSheetChanges}
                 onAnimate={handleSheetAnimate}

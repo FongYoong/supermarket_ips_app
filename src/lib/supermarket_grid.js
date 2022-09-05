@@ -79,8 +79,8 @@ export const physicalCoordinatesToThreeCoordinates = (x, y) => {
 export const gridToPhysicalCoordinates = (x, y) => {
     const threeCoords = gridToThreeCoordinates(x, y);
     return {
-        x: threeCoords.x * physicalDimensions.length / threeDimensions.length,
-        y: threeCoords.z * physicalDimensions.width / threeDimensions.width,
+        x: (threeCoords.x + threeDimensions.length/2) * physicalDimensions.length / threeDimensions.length,
+        y: (threeCoords.z + threeDimensions.width/2) * physicalDimensions.width / threeDimensions.width,
     }
 }
 // export const findPhysicalDistanceBetweenGridNodes = (startNode, endNode) => {
